@@ -21,7 +21,6 @@ struct RepositorioArmas{
 
 struct RepositorioArmas novo_repositorio_armas(struct Arma *armas){
     struct RepositorioArmas repositorio;
-    //repositorio.armas=armas;
     int i;
     for(i=0; i<sizeof(armas)/sizeof(armas[0]); i++){
         repositorio.armas[i]=armas[i];
@@ -77,10 +76,9 @@ void remova_arma_por_id(int indice_arma,struct RepositorioArmas *repositorio_arm
             for(j=i;j<repositorio_armas->proxima_posicao_disponivel;j++){
                 repositorio_armas->armas[j]=repositorio_armas->armas[j+1];
             }
+            repositorio_armas->proxima_posicao_disponivel--;
         }
     }
-    
-    repositorio_armas->proxima_posicao_disponivel-=1;
 }
 
 void remova_arma_por_nome(char * nome_arma,struct RepositorioArmas *repositorio_armas){
@@ -90,9 +88,10 @@ void remova_arma_por_nome(char * nome_arma,struct RepositorioArmas *repositorio_
             for(j=i;j<repositorio_armas->proxima_posicao_disponivel;j++){
                 repositorio_armas->armas[j]=repositorio_armas->armas[j+1];
             }
+            repositorio_armas->proxima_posicao_disponivel--;
         }
     }
-    repositorio_armas->proxima_posicao_disponivel-=1;
+    
 }
 
 struct Armadura{
@@ -107,6 +106,90 @@ struct Armadura nova_armadura(char *nome, int defesa){
 
     return armadura;
 }
+
+
+struct RepositorioArmaduras{
+    struct Armadura armaduras[10];
+    int proxima_posicao_disponivel;
+};
+
+struct RepositorioArmaduras novo_repositorio_armaduras(struct Armadura *armaduras){
+    struct RepositorioArmaduras repositorio;
+    int i;
+    for(i=0; i<sizeof(armaduras)/sizeof(armaduras[0]); i++){
+        repositorio.armaduras[i]=armaduras[i];
+    }
+    repositorio.proxima_posicao_disponivel=0;
+
+    return repositorio;
+}
+//adiciona uma nova armadura a lista de armaduras do repositorio.
+//Exemplo de uso:
+//add_armadura_repositorio_armaduras(armadura_1,&repositorio_armaduras);
+void add_armadura_repositorio_armaduras(struct Armadura armadura, struct RepositorioArmaduras* repositorio_armaduras){
+    repositorio_armaduras->armaduras[repositorio_armaduras->proxima_posicao_disponivel]=armadura;
+    repositorio_armaduras->proxima_posicao_disponivel+=1;
+}
+
+void printar_armaduras_dispoiveis(struct RepositorioArmaduras repositorio){
+    int i;
+    printf("Armaduras disponiveis:\n");
+    for(i=0;i<repositorio.proxima_posicao_disponivel;i++){
+        printf("\t%d - %s\n",i+1,repositorio.armaduras[i].nome );
+    }
+}
+
+struct Armadura selecione_armadura_por_id(int indice_armadura,struct RepositorioArmaduras repositorio_armaduras){
+    struct Armadura armadura_retorno = repositorio_armaduras.armaduras[indice_armadura];
+    return armadura_retorno;
+}
+
+struct Armadura selecione_armadura_por_nome(char *nome_armadura, struct RepositorioArmaduras repositorio_armaduras){
+    int i;
+    struct Armadura armadura_retorno;
+    for(i=0;i<repositorio_armaduras.proxima_posicao_disponivel;i++){
+        if(strcmp(repositorio_armaduras.armaduras[i].nome,nome_armadura)==0){
+            armadura_retorno=repositorio_armaduras.armaduras[i];
+        }
+    }
+    return armadura_retorno;
+}
+//exemplo de uso: mudar_nome_armadura("espada flamejante",&armadura_1);
+void mudar_nome_armadura(char * novo_nome_armadura, struct Armadura *armadura){
+    strcpy(armadura->nome, novo_nome_armadura);
+}
+//exemplo de uso: mudar_def_armadura(50,&armadura_1);
+void mudar_def_armadura(int nova_def_armadura, struct Armadura *armadura){
+    armadura->defesa=nova_def_armadura;
+}
+
+void remova_armadura_por_id(int indice_armadura,struct RepositorioArmaduras *repositorio_armaduras){
+    int i, j;
+    for(i=0;i<repositorio_armaduras->proxima_posicao_disponivel;i++){
+        if(i==indice_armadura){
+            for(j=i;j<repositorio_armaduras->proxima_posicao_disponivel;j++){
+                repositorio_armaduras->armaduras[j]=repositorio_armaduras->armaduras[j+1];
+            }
+            repositorio_armaduras->proxima_posicao_disponivel--;
+        }
+    }
+    
+    
+}
+
+void remova_armadura_por_nome(char * nome_armadura,struct RepositorioArmaduras *repositorio_armaduras){
+    int i, j;
+    for(i=0;i<repositorio_armaduras->proxima_posicao_disponivel;i++){
+        if(strcmp(repositorio_armaduras->armaduras[i].nome,nome_armadura)==0){
+            for(j=i;j<repositorio_armaduras->proxima_posicao_disponivel;j++){
+                repositorio_armaduras->armaduras[j]=repositorio_armaduras->armaduras[j+1];
+            }
+            repositorio_armaduras->proxima_posicao_disponivel--;
+        }
+    }
+    
+}
+
 
 
 struct Personagem{
@@ -141,7 +224,6 @@ int main(){
     add_arma_repositorio_armas(arma_4,&repositorio_armas);
 
     printf("%s\n", repositorio_armas.armas[0].nome);
-    //printf("%s\n", arma_1.nome);
     printf("%d\n", repositorio_armas.proxima_posicao_disponivel);
     printar_armas_dispoiveis(repositorio_armas);
 
@@ -152,6 +234,32 @@ int main(){
     remova_arma_por_nome("kunai",&repositorio_armas);
 
     printar_armas_dispoiveis(repositorio_armas);
+
+
+    struct Armadura armaduras[10];
+    struct Armadura armadura_1 = nova_armadura("armadura de couro",25);
+    struct Armadura armadura_2 = nova_armadura("escama de peixe",30);
+    struct Armadura armadura_3 = nova_armadura("armadura de couro curtido",30);
+    struct Armadura armadura_4 = nova_armadura("Pele de dragao",80);
+
+    struct RepositorioArmaduras repositorio_armaduras= novo_repositorio_armaduras(armaduras);
+
+    add_armadura_repositorio_armaduras(armadura_1,&repositorio_armaduras);
+    add_armadura_repositorio_armaduras(armadura_2,&repositorio_armaduras);
+    add_armadura_repositorio_armaduras(armadura_3,&repositorio_armaduras);
+    add_armadura_repositorio_armaduras(armadura_4,&repositorio_armaduras);
+
+    printf("%s\n", repositorio_armaduras.armaduras[0].nome);
+    printf("%d\n", repositorio_armaduras.proxima_posicao_disponivel);
+    printar_armaduras_dispoiveis(repositorio_armaduras);
+
+    printf("nome antigo (esperado: armadura de couro): %s\n", repositorio_armaduras.armaduras[0].nome);
+    mudar_nome_armadura("armadura de couro negro",&repositorio_armaduras.armaduras[0]);
+    printf("nome novo nome(esperado: armadura de couro negro): %s\n", repositorio_armaduras.armaduras[0].nome);
+
+    remova_armadura_por_nome("kunai",&repositorio_armaduras);
+
+    printar_armaduras_dispoiveis(repositorio_armaduras);
 
     return 0;
 }
