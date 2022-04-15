@@ -5,11 +5,13 @@
 struct Arma{
     char nome[100];
     int dano;
+    int pontos_preco;
 };
-struct Arma nova_arma(char *nome, int dano){
+struct Arma nova_arma(char *nome, int dano, int pontos_preco){
     struct Arma arma;
     strcpy(arma.nome, nome);
     arma.dano =  dano;
+    arma.pontos_preco=pontos_preco;
 
     return arma;
 }
@@ -97,12 +99,14 @@ void remova_arma_por_nome(char * nome_arma,struct RepositorioArmas *repositorio_
 struct Armadura{
     char nome[100];
     int defesa;
+    int pontos_preco;
 };
 
-struct Armadura nova_armadura(char *nome, int defesa){
+struct Armadura nova_armadura(char *nome, int defesa,int pontos_preco){
     struct Armadura armadura;
     strcpy(armadura.nome, nome);
     armadura.defesa = defesa;
+    armadura.pontos_preco=pontos_preco;
 
     return armadura;
 }
@@ -195,14 +199,16 @@ void remova_armadura_por_nome(char * nome_armadura,struct RepositorioArmaduras *
 struct Personagem{
     char nome[100];
     int pontos_vida;
+    int pontos;
     struct Arma arma;
     struct Armadura armadura;
 };
 
-struct Personagem novo_personagem(char *nome, int pontos_vida, struct Arma arma, struct Armadura armadura){
+struct Personagem novo_personagem(char *nome, int pontos_vida,int pontos, struct Arma arma, struct Armadura armadura){
     struct Personagem personagem;
     strcpy(personagem.nome, nome);
     personagem.pontos_vida = pontos_vida;
+    personagem.pontos=pontos;
     personagem.arma =  arma;
     personagem.armadura = armadura;
 
@@ -211,10 +217,10 @@ struct Personagem novo_personagem(char *nome, int pontos_vida, struct Arma arma,
 
 int main(){
     struct Arma armas[10];
-    struct Arma arma_1 = nova_arma("espada",50);
-    struct Arma arma_2 = nova_arma("machado",65);
-    struct Arma arma_3 = nova_arma("muchaco",30);
-    struct Arma arma_4 = nova_arma("kunai",20);
+    struct Arma arma_1 = nova_arma("espada",50,25);
+    struct Arma arma_2 = nova_arma("machado",65,30);
+    struct Arma arma_3 = nova_arma("muchaco",30,20);
+    struct Arma arma_4 = nova_arma("kunai",20,15);
 
     struct RepositorioArmas repositorio_armas= novo_repositorio_armas(armas);
 
@@ -223,24 +229,11 @@ int main(){
     add_arma_repositorio_armas(arma_3,&repositorio_armas);
     add_arma_repositorio_armas(arma_4,&repositorio_armas);
 
-    printf("%s\n", repositorio_armas.armas[0].nome);
-    printf("%d\n", repositorio_armas.proxima_posicao_disponivel);
-    printar_armas_dispoiveis(repositorio_armas);
-
-    printf("nome antigo (esperado: espada): %s\n", repositorio_armas.armas[0].nome);
-    mudar_nome_arma("espada flamejante",&repositorio_armas.armas[0]);
-    printf("nome novo nome(esperado: espada flamejante): %s\n", repositorio_armas.armas[0].nome);
-
-    remova_arma_por_nome("kunai",&repositorio_armas);
-
-    printar_armas_dispoiveis(repositorio_armas);
-
-
     struct Armadura armaduras[10];
-    struct Armadura armadura_1 = nova_armadura("armadura de couro",25);
-    struct Armadura armadura_2 = nova_armadura("escama de peixe",30);
-    struct Armadura armadura_3 = nova_armadura("armadura de couro curtido",30);
-    struct Armadura armadura_4 = nova_armadura("Pele de dragao",80);
+    struct Armadura armadura_1 = nova_armadura("armadura de couro",25,30);
+    struct Armadura armadura_2 = nova_armadura("escama de peixe",30,45);
+    struct Armadura armadura_3 = nova_armadura("armadura de couro curtido",30,40);
+    struct Armadura armadura_4 = nova_armadura("Pele de dragao",80,150);
 
     struct RepositorioArmaduras repositorio_armaduras= novo_repositorio_armaduras(armaduras);
 
@@ -249,17 +242,16 @@ int main(){
     add_armadura_repositorio_armaduras(armadura_3,&repositorio_armaduras);
     add_armadura_repositorio_armaduras(armadura_4,&repositorio_armaduras);
 
-    printf("%s\n", repositorio_armaduras.armaduras[0].nome);
-    printf("%d\n", repositorio_armaduras.proxima_posicao_disponivel);
-    printar_armaduras_dispoiveis(repositorio_armaduras);
-
-    printf("nome antigo (esperado: armadura de couro): %s\n", repositorio_armaduras.armaduras[0].nome);
-    mudar_nome_armadura("armadura de couro negro",&repositorio_armaduras.armaduras[0]);
-    printf("nome novo nome(esperado: armadura de couro negro): %s\n", repositorio_armaduras.armaduras[0].nome);
-
-    remova_armadura_por_nome("kunai",&repositorio_armaduras);
-
-    printar_armaduras_dispoiveis(repositorio_armaduras);
-
+    struct Personagem personagem= novo_personagem (
+                            "Cleiton",
+                            150,
+                            0,
+                            selecione_arma_por_nome("kunai",repositorio_armas),
+                            selecione_armadura_por_nome("armadura de couro",repositorio_armaduras));
+    printf("Nome do personagem: %s\n",personagem.nome);
+    printf("Pontos de vida do personagem: %d\n",personagem.pontos_vida);
+    printf("Pontuacao atual do personagem: %d\n",personagem.pontos);
+    printf("Arma do personagem: %s\n",personagem.arma.nome);
+    printf("Armadura do personagem: %s\n",personagem.armadura.nome);
     return 0;
 }
