@@ -215,6 +215,92 @@ struct Personagem novo_personagem(char *nome, int pontos_vida,int pontos, struct
     return personagem;
 }
 
+
+void print_mago(){
+    //use o site https://www.topster.pt/gerador-ascii/ para gerar as imagens
+    printf("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW##WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW****WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW@******@WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWWW@##@WWWWWWWWWWWWWWWWWWWWWWWW@********@WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWW=++++++++#WWWWWWWWWWWWWWWWWWWW@**********@WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WW@++-----:++++WWWWWWWWWWWWWWWWWW@************@WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WW*+:------++++=WWWWWWWWWWWWWWWW@**************@WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WW=++:----:++++#WWWWWWWWWWWWWWW@****************@WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWW+++++++++++*WWWWWWWWWWWWWWW@******************@WWWWWWWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWW#++++++++@WWWWWWWWWWWWWWW@********************@WWWWWWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWW*++++++=WWWWWWWWWWWWWWW@**********************@WWWWWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWW#++++++@WWWWWWWWWWWWWWW************************WWWWWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWW*++++=WWWWWWWWWWWWWWW**************************WWWWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWW#++++@WWWWWWWWWWWWWW****************************WWWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWW#++++@WWWWWWWWWWWWW******************************WWWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWW#++++@WWWWWWWWWWWW=******************************=WWWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWW#++++@WWWWWWWWWWW=********************************=WWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWW#++++@WWWWW@#=****************************************=#@WWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWW#++++@#=****************************************************=#WWWWWWWWWWW\n");
+
+    printf("WWWWWW#++++*********=+------:::::::::::::::::::::::::-----:+**********=WWWWWWWW\n");
+
+    printf("WWWWWW#++++*=#@@@@#::---:::::####::::::::::::::####:::::---::#@@@@#==***=WWWWWW\n");
+
+    printf("WWWWWW#++++#@@@@@@+:----::::+####*::::::::::::*####+::::----:+@@@@@@@@@@#@WWWWW\n");
+
+    printf("WWWWWW#++++#@@@@@@+:----:::::####+::::::::::::+####:::::----:+@@@@@@@@@@WWWWWWW\n");
+
+    printf("WWWWWW#++++@@@@@@@#:----::::::::::::+******+::::::::::::----:#@@@@@@WWWWWWWWWWW\n");
+
+    printf("WWWWWW#++++@WWWWWWW@:---:::::::::::::+++++::::::::::::::---:@WWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWW#++++@WWWWWWWW#---:::::----------------------:::::---#WWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWW#++++@WWWWWWWWW@:----------------+:------------:---:@WWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWW#++++@WWWWWWWWWW+-------:::+************+:::-------+WWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWW#++++@WWWWWWWWWW#------:::::::--------:::::::------#WWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWW#++++@WWWWWWWWWWW*--------------------------------*WWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWWW#++++@WWWWWWWWWWW+--------------------------------+WWWWWWWWWWWWWWWWWWWWWW\n");
+
+    printf("WWWWW#*::::=@WWWWW@#===+--------------------------------+===#@WWWWWWWWWWWWWWWWW\n");
+
+    printf("WWW+::::::::::**********:------------------------------:*********@WWWWWWWWWWWWW\n");
+
+    printf("WW*::::::::::::+*********------------------------------************#WWWWWWWWWWW\n");
+
+    printf("WW*::::::::::::+*********+----------------------------+**************@WWWWWWWWW\n");
+
+    printf("WW#::::::::::::***********+--------------------------+****************@WWWWWWWW\n");
+
+    printf("WW=+::::::::::***************+--------------------+*******************=WWWWWWWW\n");
+
+    printf("WW=**+::::::+*****************:------------------:*********************WWWWWWWW\n");
+
+    printf("WW=***+++++***********************==:------:==*************************WWWWWWWW\n");
+
+    printf("WW=***+++++*************************========***************************WWWWWWWW\n");
+
+    printf("(c) 2022 topster.de############################################################\n");
+}
+
 int main(){
     struct Arma armas[10];
     struct Arma arma_1 = nova_arma("espada",50,25);
@@ -253,5 +339,7 @@ int main(){
     printf("Pontuacao atual do personagem: %d\n",personagem.pontos);
     printf("Arma do personagem: %s\n",personagem.arma.nome);
     printf("Armadura do personagem: %s\n",personagem.armadura.nome);
+
+    print_mago();
     return 0;
 }
