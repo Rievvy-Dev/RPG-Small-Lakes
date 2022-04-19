@@ -469,7 +469,7 @@ int main(){
 
     // Fim Monstros
     struct PocaoVida pocoes[10];
-    
+
     struct PocaoVida p1=nova_pocao_vida("Cura Grande",50,80);
     struct PocaoVida p2=nova_pocao_vida("Cura Media",25,40);
     struct PocaoVida p3=nova_pocao_vida("Cura Pequena",12,20);
@@ -498,12 +498,12 @@ int main(){
     printf("Primeiro monstro: %s\n", monstro_1.nome_monstro);
     printf("Vida do monstro: %d", monstro_1.vida_monstro);
 
-    
-    
-    
-    printar_pocoes_disponiveis(repositorio_pocao_vida);
-    remova_pocao_vida_por_nome("Cura Pequena",&repositorio_pocao_vida);  
-    printar_pocoes_disponiveis(repositorio_pocao_vida);  
+
+
+
+    //printar_pocoes_disponiveis(repositorio_pocao_vida);
+    remova_pocao_vida_por_nome("Cura Pequena",&repositorio_pocao_vida);
+    //printar_pocoes_disponiveis(repositorio_pocao_vida);
 
 
     return 0;
