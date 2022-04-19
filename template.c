@@ -306,13 +306,23 @@ void remova_pocao_vida_por_nome(char * nome_pocao, struct RepositorioPocaoVida *
 
 }
 
-void printar_pocoes_disponiveis(struct RepositorioPocaoVida repositorio){
-    int i;
+/*void printar_pocoes_disponiveis(struct RepositorioPocaoVida repositorio){
+    int i,j;
+    int auxi=0;
+    int cont=0;
+    char * pocoes_disponiveis[5];
     printf("Pocoes de Cura disponiveis:\n");
+
     for(i = 0; i < repositorio.proxima_posicao_disponivel; i++){
+        for(j = i; j<repositorio.proxima_posicao_disponivel; j++){
+            if(strcmp(repositorio.pocoes_vida[i].nome,repositorio.pocoes_vida[j].nome)==0){
+                pocoes_disponiveis[cont]=repositorio.pocoes_vida[j].nome;
+            }
+            cont++;
+        }
         printf("\t%d - %s\n", i+1, repositorio.pocoes_vida[i].nome);
     }
-}
+}*/
 
 struct Personagem{
     char nome[100];
@@ -320,15 +330,17 @@ struct Personagem{
     int pontos;
     struct Arma arma;
     struct Armadura armadura;
+    struct RepositorioPocaoVida repositorio_pocao_vida;
 };
 
-struct Personagem novo_personagem(char *nome, int pontos_vida,int pontos, struct Arma arma, struct Armadura armadura){
+struct Personagem novo_personagem(char *nome, int pontos_vida,int pontos, struct Arma arma, struct Armadura armadura, struct RepositorioPocaoVida repositorio_pocao_vida){
     struct Personagem personagem;
     strcpy(personagem.nome, nome);
     personagem.pontos_vida = pontos_vida;
     personagem.pontos=pontos;
     personagem.arma =  arma;
     personagem.armadura = armadura;
+    personagem.repositorio_pocao_vida=repositorio_pocao_vida;
 
     return personagem;
 }
@@ -456,13 +468,25 @@ int main(){
     add_monstro_repositorio_monstros(monstro_1, &repositorio_monstros);
 
     // Fim Monstros
+    struct PocaoVida pocoes[10];
+    
+    struct PocaoVida p1=nova_pocao_vida("Cura Grande",50,80);
+    struct PocaoVida p2=nova_pocao_vida("Cura Media",25,40);
+    struct PocaoVida p3=nova_pocao_vida("Cura Pequena",12,20);
+
+    struct RepositorioPocaoVida repositorio_pocao_vida=novo_repositorio_pocao_vida(pocoes);
+
+    add_poacao_vida_repositorio_pocao_vida(p1,&repositorio_pocao_vida);
+    add_poacao_vida_repositorio_pocao_vida(p2,&repositorio_pocao_vida);
+    add_poacao_vida_repositorio_pocao_vida(p3,&repositorio_pocao_vida);
 
     struct Personagem personagem = novo_personagem (
                             "Cleiton",
                             150,
                             0,
                             selecione_arma_por_nome("kunai",repositorio_armas),
-                            selecione_armadura_por_nome("armadura de couro",repositorio_armaduras));
+                            selecione_armadura_por_nome("armadura de couro",repositorio_armaduras),
+                            repositorio_pocao_vida);
 
     printf("Nome do personagem: %s\n",personagem.nome);
     printf("Pontos de vida do personagem: %d\n",personagem.pontos_vida);
@@ -474,17 +498,9 @@ int main(){
     printf("Primeiro monstro: %s\n", monstro_1.nome_monstro);
     printf("Vida do monstro: %d", monstro_1.vida_monstro);
 
-    struct PocaoVida pocoes[10];
     
-    struct PocaoVida p1=nova_pocao_vida("Cura Grande",50,80);
-    struct PocaoVida p2=nova_pocao_vida("Cura Media",25,40);
-    struct PocaoVida p3=nova_pocao_vida("Cura Pequena",12,20);
-
-    struct RepositorioPocaoVida repositorio_pocao_vida=novo_repositorio_pocao_vida(pocoes);
     
-    add_poacao_vida_repositorio_pocao_vida(p1,&repositorio_pocao_vida);
-    add_poacao_vida_repositorio_pocao_vida(p2,&repositorio_pocao_vida);
-    add_poacao_vida_repositorio_pocao_vida(p3,&repositorio_pocao_vida);
+    
     printar_pocoes_disponiveis(repositorio_pocao_vida);
     remova_pocao_vida_por_nome("Cura Pequena",&repositorio_pocao_vida);  
     printar_pocoes_disponiveis(repositorio_pocao_vida);  
