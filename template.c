@@ -377,7 +377,6 @@ struct Personagem novo_personagem(char *nome, int pontos_vida,int pontos, struct
 }
 
 void ver_status_personagem(struct Personagem personagem){
-<<<<<<< HEAD
     printf("\nStatus do Personagem:\n");
     printf("Nome: %s\n", personagem.nome);
     printf("Vida: %d\n", personagem.pontos_vida);
@@ -385,7 +384,7 @@ void ver_status_personagem(struct Personagem personagem){
     printf("Arma: %s\n", personagem.arma.nome);
     printf("Nome da Armadura: %s -- Durabilidade: %d\n", personagem.armadura.nome, personagem.armadura.defesa);
     // Lembrar de ver a quantidade de poï¿½ï¿½es disponï¿½veis no personagem.
-=======
+
     printf("\n\tStatus do Personagem:\n");
     printf("\tNome: %s\n", personagem.nome);
     printf("\tVida: %d\n", personagem.pontos_vida);
@@ -393,7 +392,6 @@ void ver_status_personagem(struct Personagem personagem){
     printf("\tArma: %s\n", personagem.arma.nome);
     printf("\tNome da Armadura: %s -- Durabilidade: %d\n", personagem.armadura.nome, personagem.armadura.defesa);
     //printf("Pocoes Disponiveis: %d", )
->>>>>>> refs/remotes/origin/master
 }
 
 // Inicio Funï¿½ï¿½es de Batalha
@@ -449,30 +447,6 @@ void batalha(struct Personagem *personagem, struct Monstros monstro){
             }
         }while(vida_atual_monstro > 0 && personagem->pontos_vida > 0);
 }
-
-<<<<<<< HEAD
-/*void batalha_ataque(struct Personagem personagem, struct Monstros monstro){
-    int vida_atual_do_monstro;
-
-    vida_atual_do_monstro = monstro.vida_monstro - personagem.arma.dano;
-
-    if(vida_atual_do_monstro > 0){
-        monstro.vida_monstro = vida_atual_do_monstro;
-        ver_status_monstro(monstro);
-    }
-    if(vida_atual_do_monstro == 0){
-
-    }
-    if(vida_atual_do_monstro <= 0){
-
-    }
-}*/
-
-// Fim Funï¿½ï¿½es de Batalha
-=======
-// Fim Funções de Batalha
->>>>>>> refs/remotes/origin/master
-
 
 void print_mago(){
     //use o site https://www.topster.pt/gerador-ascii/ para gerar as imagens
@@ -559,208 +533,6 @@ void print_mago(){
     printf("(c) 2022 topster.de############################################################\n");
 }
 
-<<<<<<< HEAD
-=======
-void print_orc(){
-
-printf("\t----------------++++++:::::+***+******+++++++::--.-:::+:-----------------------\n");
-
-printf("\t--------------:++++++++::++**=**==****=*++*+++::::-:+**:-----------------------\n");
-
-printf("\t--------------++++*****+++*=======@@@@@#@@@=*+*++++==***:----------------------\n");
-
-printf("\t-------------++++***+++*++++===#@@@@@@@@@@#*+**==++#==**:----------------------\n");
-
-printf("\t::::::::::::++*******+++*+++*#@@@@@@@@@@#==*+**=#=++#=*=+----------------------\n");
-
-printf("\t:::::::::*###*++++***+**++=#@@@@@@@#=#@@###======#==#===-----------------------\n");
-
-printf("\t:::::::::*=##@@@#@##==**=@@@@@@@@######=*==######@@==#*+*----------------------\n");
-
-printf("\t----------:+*#@@@@@@@####@@##==###========##@#####@@##=*:----------------------\n");
-
-printf("\t:::::::::--::+*==####=***===*=####=====###########@@#=*+:------------------::--\n");
-
-printf("\t:::::::::::::+**********+==#@##==#####=*::###@#####@@#==+:-----------------:+::\n");
-
-printf("\t:::::::::::::++****=#=#==#@##==*=#####***+:+#@#####@@@@#=*:-.--------------:*++\n");
-
-printf("\t+++::::::::::+****=**=##@###=**====##@===*+::=#####@@@@##=*:-.-------------:*=*\n");
-
-printf("\t::::---------:*******==#####====#@@@@@#=#=**+*=###@@@@@###=+::-------------:+==\n");
-
-printf("\t-------------:**:+=====#####=#@@@#@#=#@=##===*=##==@@@@@###=+::-------------+*=\n");
-
-printf("\t-----------::+***+:+####==##@@#@###==******=========#@@@@@##*+++:-----------:*=\n");
-
-printf("\t-------------+*==*+++=##@@@#===******==#=========*==#@@@@@@#=*=*+::---:::::::*=\n");
-
-printf("\t::::::::::::::+===***===#=***==*===***==####==##===##@@@@@@####=*+:::---:++***=\n");
-
-printf("\t--::+++++::::+*=####=#==#############====##########@W@@@@@@@###==**+::-----+===\n");
-
-printf("\t:++++++:::::+*===#==####@@@@@@@#######==##@@@@###@@WWWW@@@W@####==***+::-----:=\n");
-
-printf("\t::::::::---:+*=#==##@@@@@@@###=====#####@@@@@@@##@WWWWWWWW@########==**+::::+*=\n");
-
-printf("\t------------::*===###@###===*****===#=##@@@@@@WWW@WWWWWWW@##@@@#######=*****===\n");
-
-printf("\t:::::::::::::***==#####==#==#==#=##@@@@@@@@@@WWWWWWWWWWW@@@@@@@#########==#====\n");
-
-}
-
-void print_hidra(){
-printf("\t...............................................................................\n");
-
-printf("\t........................-......................................................\n");
-
-printf("\t..............+-.....-==.......+*..............................................\n");
-
-printf("\t..............*=....=#=.......:##:......-:+*========*+:-.......................\n");
-
-printf("\t..............:@=.-###=-:**:-*####=#@#####################@#*:.................\n");
-
-printf("\t...............*#################################################:.............\n");
-
-printf("\t................*###################################################+..........\n");
-
-printf("\t...............:####*--###############################################=-.......\n");
-
-printf("\t.............+######=###############################=+:-...........-:+=##:.....\n");
-
-printf("\t...........+###########################*+--...........-:+**=#####=*+:-.........\n");
-
-printf("\t..........:######*:-.....=##########=...........-*######################*:.....\n");
-
-printf("\t..............:=*.......+######=-...........:=######################*-...:*##-.\n");
-
-printf("\t.......................+####=-...........:########################:..:#######-.\n");
-
-printf("\t...............-*...-*####+............*########################:.-=#########-.\n");
-
-printf("\t................=#####=:.............+########################=..=###########-.\n");
-
-printf("\t.................+*=*:-............-##################=+:-.....:#############-.\n");
-
-printf("\t......................:*+.........+###############+...........+##############-.\n");
-
-printf("\t..................:###-.........-##############*.............:#############+...\n");
-
-printf("\t................:####........-###############=..............-############+.....\n");
-
-printf("\t..............-=########*..-*###############:...............*###########:......\n");
-
-printf("\t............:#############################=................-###########*.......\n");
-
-printf("\t...+@#=*=#######*-.:#####################-.................+##########@-.......\n");
-
-printf("\t.....-#################################:...................###########=........\n");
-
-printf("\t.....-*#############################=-.........:..........*###########:........\n");
-
-printf("\t........:#+......---##############:.....:*=+..*+.........+###########=.........\n");
-
-printf("\t..........-.......-###########=:....-*##=....*=.........=############-.........\n");
-
-printf("\t........:-.......+############*....=###*...+##-..+#-..*#############:..........\n");
-
-printf("\t........=#+::+=#######*:......-..+######=###=-.:###*###############:...........\n");
-
-printf("\t........*#######=+:............*##################################-............\n");
-
-printf("\t...........-:+-............:=#######+-*#########################+..............\n");
-
-printf("\t.......................-=#########=::=########################*................\n");
-
-printf("\t......................-=####################################:..................\n");
-
-printf("\t.........................-##=+:++*==####################=:.....................\n");
-
-printf("\t...........................:*.........=###########=*:..........................\n");
-
-printf("\t..........................-.........-############:.............................\n");
-
-printf("\t..........................*:......:##########===#@+............................\n");
-
-printf("\t..........................=############*-......................................\n");
-
-printf("\t..........................:#####*:-............................................\n");
-
-printf("\t...............................................................................\n");
-
-printf("\t...............................................................................\n");
-
-}
-
-//##############################################################################################################
-
-// Menu de Batalha --INICIO--
-
-void menu_batalha(struct Personagem *personagem){
-    int option;
-
-    //MONSTROS
-    struct Monstros monstros[10];
-    struct Monstros monstro_1 = novo_monstro("Orc Esqueleto", 50, 60, 10);
-    struct Monstros monstro_2 = novo_monstro("Hidra", 150, 60, 30);
-    struct Monstros monstro_3 = novo_monstro("Gorgona", 150, 60, 30);
-    struct Monstros monstro_4 = novo_monstro("Dragao", 150, 60, 500);
-
-        do{
-            printf("\n\t=======================================");
-            printf("\n\t|1. Batalhar com -- Orc Esqueleto --  |\n");
-            printf("\t|2. Batalhar com -- Hidra --          |\n");
-            printf("\t|3. Batalhar com -- Quimera --        |\n");
-            printf("\t|4. Batalhar com -- Dragao Eletrico --|\n");
-            printf("\t|5. Batalhar com -- The Last Knight --|\n");
-            printf("\t|6. Voltar Para o Menu de Opcoes.     |\n");
-            printf("\t=======================================");
-            printf("\n\tDigite uma das opcoes para iniciar sua batalha ou voltar para o menu inicial: ");
-            scanf("%d", &option);
-
-            if(option == 1){
-                printf("\n");
-                print_orc();
-                printf("\n\tQuem ousa interromper meu almoco?? \n\tEspero que esteja preparado aventureiro seu destino sera o mesmo daquela pilha de ossos\n");
-                printf("\n");
-                printf("\tDigite algo para iniciar sua batalha ");
-                scanf("%s");
-                batalha(personagem, monstro_1);
-            }
-            if(option == 2){
-                printf("\n");
-                print_hidra();
-                printf("\n\tAcha que so porque derrotou aquele inutil daquele Orc vai poder ir contra mim?\n\tVou adorar ver voce tentar...");
-                printf("\n");
-                printf("\tDigite algo para iniciar sua batalha ");
-                scanf("%s");
-                printf("\n");
-                batalha(personagem, monstro_2);
-            }
-            if(option == 6){
-            }
-        } while(option != 6);
-}
-
-/*void menu_principal(struct Personagem *personagem){
-    int option;
-    do{
-        printf("\n\t1. Sair em uma Aventura\n");
-        printf("\t2. Loja\n");
-        printf("\t3. Personagem\n");
-        printf("\t4. Lore dos Monstros\n");
-        printf("\t4. Abandonar Aventura\n");
-        printf("\n\tDigite uma das opcoes acima: ");
-        scanf("%d", &option);
-
-        if(option == 1){
-            menu_batalha(personagem);
-        }
-    } while(option =! 4);
-
-}*/
-
->>>>>>> refs/remotes/origin/master
 int main(){
 
     //ARMAS
@@ -819,7 +591,6 @@ int main(){
                             selecione_armadura_por_nome("armadura de couro",repositorio_armaduras),
                             repositorio_pocao_vida);
 
-<<<<<<< HEAD
     printf("Nome do personagem: %s\n",personagem.nome);
     printf("Pontos de vida do personagem: %d\n",personagem.pontos_vida);
     printf("Pontuacao atual do personagem: %d\n",personagem.pontos);
@@ -865,26 +636,6 @@ int main(){
     //printf("Batalha 4:\n");
     //batalha_defesa(personagem, monstro_4);
     //printf("\n");
-=======
-        int option;
-        do{
-            printf("\n\t1. Sair em uma Aventura\n");
-            printf("\t2. Loja\n");
-            printf("\t3. Personagem\n");
-            printf("\t4. Lore dos Monstros\n");
-            printf("\t4. Abandonar Aventura\n");
-            printf("\n\tDigite uma das opcoes acima: ");
-            scanf("%d", &option);
-
-            if(option == 1){
-                menu_batalha(&personagem);
-            }
-        } while(option =! 4);
-
-
-
-    //menu_principal(novo_personagem);
->>>>>>> refs/remotes/origin/master
 
     return 0;
 }
