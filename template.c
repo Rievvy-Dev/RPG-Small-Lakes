@@ -383,10 +383,10 @@ void ver_status_personagem(struct Personagem personagem){
     printf("Pontos de Gloria: %d\n", personagem.pontos);
     printf("Arma: %s\n", personagem.arma.nome);
     printf("Nome da Armadura: %s -- Durabilidade: %d\n", personagem.armadura.nome, personagem.armadura.defesa);
-    // Lembrar de ver a quantidade de poções disponíveis no personagem.
+    // Lembrar de ver a quantidade de poï¿½ï¿½es disponï¿½veis no personagem.
 }
 
-// Inicio Funções de Batalha
+// Inicio Funï¿½ï¿½es de Batalha
 
 void batalha(struct Personagem personagem, struct Monstros monstro){
     int dano_recebido, vida_atual_monstro;
@@ -445,7 +445,7 @@ void batalha(struct Personagem personagem, struct Monstros monstro){
     }
 }*/
 
-// Fim Funções de Batalha
+// Fim Funï¿½ï¿½es de Batalha
 
 
 void print_mago(){
@@ -533,14 +533,6 @@ void print_mago(){
     printf("(c) 2022 topster.de############################################################\n");
 }
 
-<<<<<<< HEAD
-=======
-//##############################################################################################################
-
-// Inicio Funções de Batalha
-
->>>>>>> refs/remotes/origin/master
-
 int main(){
     struct Arma armas[10];
     struct Arma arma_1 = nova_arma("espada",50,25);
@@ -614,7 +606,6 @@ int main(){
     printf("Arma do personagem: %s\n",personagem.arma.nome);
     printf("Armadura do personagem: %s\n",personagem.armadura.nome);
 
-<<<<<<< HEAD
     
     printf("Primeiro monstro: %s\n", monstro_1.nome_monstro);
     printf("Vida do monstro: %d\n", monstro_1.vida_monstro);
@@ -625,7 +616,6 @@ int main(){
     //printar_pocoes_disponiveis(repositorio_pocao_vida);
     //remova_pocao_vida_por_nome("Cura Pequena",&repositorio_pocao_vida);  
     printar_pocoes_disponiveis(repositorio_pocao_vida);  
-=======
     //print_mago();
 
     printf("Primeiro monstro: %s\n", monstro_1.nome_monstro);
@@ -641,7 +631,7 @@ int main(){
     //printar_pocoes_disponiveis(repositorio_pocao_vida);
     remova_pocao_vida_por_nome("Cura Pequena",&repositorio_pocao_vida);
     //printar_pocoes_disponiveis(repositorio_pocao_vida);
-
+    printar_armaduras_disponiveis(repositorio_armaduras);
     //printf("\n");
     //printf("Batalha 1:\n");
     //batalha(personagem, monstro_1);
@@ -655,8 +645,6 @@ int main(){
     //printf("Batalha 4:\n");
     //batalha_defesa(personagem, monstro_4);
     //printf("\n");
->>>>>>> refs/remotes/origin/master
-
 
     return 0;
 }
