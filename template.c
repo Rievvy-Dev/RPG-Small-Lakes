@@ -223,10 +223,10 @@ struct Monstros novo_monstro(char *nome_monstro, int vida_monstro, int pontos, i
     return monstros;
 }
 void ver_status_monstro(struct Monstros monstro){
-    printf("\nStatus do Inimigo:\n");
-    printf("Nome: %s\n", monstro.nome_monstro);
-    printf("Vida: %d\n", monstro.vida_monstro);
-    printf("Pontos dados: %d\n", monstro.pontos);
+    printf("\n\tStatus do Inimigo:\n");
+    printf("\tNome: %s\n", monstro.nome_monstro);
+    printf("\tVida: %d\n", monstro.vida_monstro);
+    printf("\tPontuacao do Inimigo: %d\n", monstro.pontos);
 }
 
 struct RepositorioMonstros{
@@ -339,16 +339,16 @@ void printar_pocoes_disponiveis(struct RepositorioPocaoVida repositorio){
     int proxima_posicao_pocoes_disponiveis=0;
     char pocoes_disponiveis[10][50];
     printf("Pocoes de Cura disponiveis:\n");
-    
+
     for(i=0;i<repositorio.proxima_posicao_disponivel;i++){
         cont=0;
         for(j=i;j<repositorio.proxima_posicao_disponivel;j++){
             if(strcmp(repositorio.pocoes_vida[i].nome,repositorio.pocoes_vida[j].nome)==0 && cont==0 && possui_pocao(repositorio.pocoes_vida[j].nome,pocoes_disponiveis,proxima_posicao_pocoes_disponiveis)!=0){
                 strcpy(pocoes_disponiveis[proxima_posicao_pocoes_disponiveis],repositorio.pocoes_vida[i].nome);
                 proxima_posicao_pocoes_disponiveis++;
-                cont++;               
+                cont++;
             }
-        } 
+        }
     }
     for(i=0; i<proxima_posicao_pocoes_disponiveis;i++){
         printf("\t%s  - - - -  x%d\n",pocoes_disponiveis[i],quantidade_pocao_disponivel(pocoes_disponiveis[i],repositorio));
@@ -377,73 +377,68 @@ struct Personagem novo_personagem(char *nome, int pontos_vida,int pontos, struct
 }
 
 void ver_status_personagem(struct Personagem personagem){
-    printf("\nStatus do Personagem:\n");
-    printf("Nome: %s\n", personagem.nome);
-    printf("Vida: %d\n", personagem.pontos_vida);
-    printf("Pontos de Gloria: %d\n", personagem.pontos);
-    printf("Arma: %s\n", personagem.arma.nome);
-    printf("Nome da Armadura: %s -- Durabilidade: %d\n", personagem.armadura.nome, personagem.armadura.defesa);
-    // Lembrar de ver a quantidade de poções disponíveis no personagem.
+    printf("\n\tStatus do Personagem:\n");
+    printf("\tNome: %s\n", personagem.nome);
+    printf("\tVida: %d\n", personagem.pontos_vida);
+    printf("\tPontos de Gloria: %d\n", personagem.pontos);
+    printf("\tArma: %s\n", personagem.arma.nome);
+    printf("\tNome da Armadura: %s -- Durabilidade: %d\n", personagem.armadura.nome, personagem.armadura.defesa);
+    //printf("Pocoes Disponiveis: %d", )
 }
 
 // Inicio Funções de Batalha
 
-void batalha(struct Personagem personagem, struct Monstros monstro){
-    int dano_recebido, vida_atual_monstro;
+void batalha(struct Personagem *personagem, struct Monstros monstro){
+    int durabilidade, vida_atual_monstro, vida_atual_personagem;
 
-    while(vida_atual_monstro > 0 && personagem.pontos_vida > 0){
-
-        dano_recebido = personagem.armadura.defesa - monstro.dano;
-        vida_atual_monstro = monstro.vida_monstro - personagem.arma.dano;
-
-            if(dano_recebido > 0){
-                personagem.armadura.defesa = dano_recebido;
-                monstro.vida_monstro = vida_atual_monstro;
-                ver_status_monstro(monstro);
-                ver_status_personagem(personagem);
-            }
-            if(dano_recebido == 0){
-                personagem.armadura.defesa = dano_recebido;
-                monstro.vida_monstro = vida_atual_monstro;
-                ver_status_monstro(monstro);
-                ver_status_personagem(personagem);
-                printf("Sua Armadura Foi Quebrada!\n");
-            }
-            if(dano_recebido < 0){
-                personagem.armadura.defesa = 0;
-                personagem.pontos_vida = personagem.pontos_vida + dano_recebido;
-
-                if(personagem.pontos_vida <= 0){
-                    printf("\nGAME OVER\n");
-                    exit(0);
-                }else{
-                    printf("\nO inimigo foi derrotado!\n");
-                    personagem.pontos = personagem.pontos + monstro.pontos;
-                    ver_status_personagem(personagem);
-                }
-            }
-        }
-        if(personagem.pontos_vida > 0 && monstro.vida_monstro <= 0){
-            printf("Personagem Ganhou");
-        }
-}
-
-/*void batalha_ataque(struct Personagem personagem, struct Monstros monstro){
-    int vida_atual_do_monstro;
-
-    vida_atual_do_monstro = monstro.vida_monstro - personagem.arma.dano;
-
-    if(vida_atual_do_monstro > 0){
-        monstro.vida_monstro = vida_atual_do_monstro;
+        ver_status_personagem(*personagem);
         ver_status_monstro(monstro);
-    }
-    if(vida_atual_do_monstro == 0){
 
-    }
-    if(vida_atual_do_monstro <= 0){
+    do{
 
-    }
-}*/
+        durabilidade = personagem->armadura.defesa - monstro.dano;
+        vida_atual_personagem = personagem->pontos_vida + durabilidade;
+        vida_atual_monstro = monstro.vida_monstro - personagem->arma.dano;
+
+        if(vida_atual_monstro > 0){
+            if(durabilidade > 0){
+                personagem->armadura.defesa = durabilidade;
+                monstro.vida_monstro = vida_atual_monstro;
+                ver_status_personagem(*personagem);
+                ver_status_monstro(monstro);
+            }
+            if(durabilidade == 0){
+                personagem->armadura.defesa = 0;
+                monstro.vida_monstro = vida_atual_monstro;
+                ver_status_personagem(*personagem);
+                printf("\n\tSua Armadura Foi Quebrada!\n");
+                ver_status_monstro(monstro);
+            }
+            if(durabilidade < 0){
+                personagem->armadura.defesa = 0;
+                personagem->pontos_vida = vida_atual_personagem;
+                monstro.vida_monstro = vida_atual_monstro;
+                ver_status_personagem(*personagem);
+                ver_status_monstro(monstro);
+            }
+            if(personagem->pontos_vida <= 0){
+                printf("\n\tSEU PERSONAGEM FOI DERROTADO, INICIE UM NOVO JOGO\n");
+                exit(0);
+            }
+        }
+            if(vida_atual_monstro <= 0 && vida_atual_personagem > 0){
+                personagem->pontos = personagem->pontos + monstro.pontos;
+                ver_status_personagem(*personagem);
+                printf("\n\tO inimigo foi derrotado!\n");
+            }
+            if(vida_atual_monstro == 0 && vida_atual_personagem == 0){
+                personagem->pontos_vida = 0;
+                ver_status_personagem(*personagem);
+                printf("\n\tVOCE LUTOU BRAVAMENTE E MATOU O MONSTRO MAS NAO SOBREVIVEU PARA CONTAR A HISTORIA, INICIE UM NOVO JOGO\n");
+                exit(0);
+            }
+        }while(vida_atual_monstro > 0 && personagem->pontos_vida > 0);
+}
 
 // Fim Funções de Batalha
 
@@ -533,20 +528,213 @@ void print_mago(){
     printf("(c) 2022 topster.de############################################################\n");
 }
 
-<<<<<<< HEAD
-=======
+void print_orc(){
+
+printf("\t----------------++++++:::::+***+******+++++++::--.-:::+:-----------------------\n");
+
+printf("\t--------------:++++++++::++**=**==****=*++*+++::::-:+**:-----------------------\n");
+
+printf("\t--------------++++*****+++*=======@@@@@#@@@=*+*++++==***:----------------------\n");
+
+printf("\t-------------++++***+++*++++===#@@@@@@@@@@#*+**==++#==**:----------------------\n");
+
+printf("\t::::::::::::++*******+++*+++*#@@@@@@@@@@#==*+**=#=++#=*=+----------------------\n");
+
+printf("\t:::::::::*###*++++***+**++=#@@@@@@@#=#@@###======#==#===-----------------------\n");
+
+printf("\t:::::::::*=##@@@#@##==**=@@@@@@@@######=*==######@@==#*+*----------------------\n");
+
+printf("\t----------:+*#@@@@@@@####@@##==###========##@#####@@##=*:----------------------\n");
+
+printf("\t:::::::::--::+*==####=***===*=####=====###########@@#=*+:------------------::--\n");
+
+printf("\t:::::::::::::+**********+==#@##==#####=*::###@#####@@#==+:-----------------:+::\n");
+
+printf("\t:::::::::::::++****=#=#==#@##==*=#####***+:+#@#####@@@@#=*:-.--------------:*++\n");
+
+printf("\t+++::::::::::+****=**=##@###=**====##@===*+::=#####@@@@##=*:-.-------------:*=*\n");
+
+printf("\t::::---------:*******==#####====#@@@@@#=#=**+*=###@@@@@###=+::-------------:+==\n");
+
+printf("\t-------------:**:+=====#####=#@@@#@#=#@=##===*=##==@@@@@###=+::-------------+*=\n");
+
+printf("\t-----------::+***+:+####==##@@#@###==******=========#@@@@@##*+++:-----------:*=\n");
+
+printf("\t-------------+*==*+++=##@@@#===******==#=========*==#@@@@@@#=*=*+::---:::::::*=\n");
+
+printf("\t::::::::::::::+===***===#=***==*===***==####==##===##@@@@@@####=*+:::---:++***=\n");
+
+printf("\t--::+++++::::+*=####=#==#############====##########@W@@@@@@@###==**+::-----+===\n");
+
+printf("\t:++++++:::::+*===#==####@@@@@@@#######==##@@@@###@@WWWW@@@W@####==***+::-----:=\n");
+
+printf("\t::::::::---:+*=#==##@@@@@@@###=====#####@@@@@@@##@WWWWWWWW@########==**+::::+*=\n");
+
+printf("\t------------::*===###@###===*****===#=##@@@@@@WWW@WWWWWWW@##@@@#######=*****===\n");
+
+printf("\t:::::::::::::***==#####==#==#==#=##@@@@@@@@@@WWWWWWWWWWW@@@@@@@#########==#====\n");
+
+}
+
+void print_hidra(){
+printf("\t...............................................................................\n");
+
+printf("\t........................-......................................................\n");
+
+printf("\t..............+-.....-==.......+*..............................................\n");
+
+printf("\t..............*=....=#=.......:##:......-:+*========*+:-.......................\n");
+
+printf("\t..............:@=.-###=-:**:-*####=#@#####################@#*:.................\n");
+
+printf("\t...............*#################################################:.............\n");
+
+printf("\t................*###################################################+..........\n");
+
+printf("\t...............:####*--###############################################=-.......\n");
+
+printf("\t.............+######=###############################=+:-...........-:+=##:.....\n");
+
+printf("\t...........+###########################*+--...........-:+**=#####=*+:-.........\n");
+
+printf("\t..........:######*:-.....=##########=...........-*######################*:.....\n");
+
+printf("\t..............:=*.......+######=-...........:=######################*-...:*##-.\n");
+
+printf("\t.......................+####=-...........:########################:..:#######-.\n");
+
+printf("\t...............-*...-*####+............*########################:.-=#########-.\n");
+
+printf("\t................=#####=:.............+########################=..=###########-.\n");
+
+printf("\t.................+*=*:-............-##################=+:-.....:#############-.\n");
+
+printf("\t......................:*+.........+###############+...........+##############-.\n");
+
+printf("\t..................:###-.........-##############*.............:#############+...\n");
+
+printf("\t................:####........-###############=..............-############+.....\n");
+
+printf("\t..............-=########*..-*###############:...............*###########:......\n");
+
+printf("\t............:#############################=................-###########*.......\n");
+
+printf("\t...+@#=*=#######*-.:#####################-.................+##########@-.......\n");
+
+printf("\t.....-#################################:...................###########=........\n");
+
+printf("\t.....-*#############################=-.........:..........*###########:........\n");
+
+printf("\t........:#+......---##############:.....:*=+..*+.........+###########=.........\n");
+
+printf("\t..........-.......-###########=:....-*##=....*=.........=############-.........\n");
+
+printf("\t........:-.......+############*....=###*...+##-..+#-..*#############:..........\n");
+
+printf("\t........=#+::+=#######*:......-..+######=###=-.:###*###############:...........\n");
+
+printf("\t........*#######=+:............*##################################-............\n");
+
+printf("\t...........-:+-............:=#######+-*#########################+..............\n");
+
+printf("\t.......................-=#########=::=########################*................\n");
+
+printf("\t......................-=####################################:..................\n");
+
+printf("\t.........................-##=+:++*==####################=:.....................\n");
+
+printf("\t...........................:*.........=###########=*:..........................\n");
+
+printf("\t..........................-.........-############:.............................\n");
+
+printf("\t..........................*:......:##########===#@+............................\n");
+
+printf("\t..........................=############*-......................................\n");
+
+printf("\t..........................:#####*:-............................................\n");
+
+printf("\t...............................................................................\n");
+
+printf("\t...............................................................................\n");
+
+}
+
 //##############################################################################################################
 
-// Inicio Funções de Batalha
+// Menu de Batalha --INICIO--
 
->>>>>>> refs/remotes/origin/master
+void menu_batalha(struct Personagem *personagem){
+    int option;
+
+    //MONSTROS
+    struct Monstros monstros[10];
+    struct Monstros monstro_1 = novo_monstro("Orc Esqueleto", 50, 60, 10);
+    struct Monstros monstro_2 = novo_monstro("Hidra", 150, 60, 30);
+    struct Monstros monstro_3 = novo_monstro("Gorgona", 150, 60, 30);
+    struct Monstros monstro_4 = novo_monstro("Dragao", 150, 60, 500);
+
+        do{
+            printf("\n\t=======================================");
+            printf("\n\t|1. Batalhar com -- Orc Esqueleto --  |\n");
+            printf("\t|2. Batalhar com -- Hidra --          |\n");
+            printf("\t|3. Batalhar com -- Quimera --        |\n");
+            printf("\t|4. Batalhar com -- Dragao Eletrico --|\n");
+            printf("\t|5. Batalhar com -- The Last Knight --|\n");
+            printf("\t|6. Voltar Para o Menu de Opcoes.     |\n");
+            printf("\t=======================================");
+            printf("\n\tDigite uma das opcoes para iniciar sua batalha ou voltar para o menu inicial: ");
+            scanf("%d", &option);
+
+            if(option == 1){
+                printf("\n");
+                print_orc();
+                printf("\n\tQuem ousa interromper meu almoco?? \n\tEspero que esteja preparado aventureiro seu destino sera o mesmo daquela pilha de ossos\n");
+                printf("\n");
+                printf("\tDigite algo para iniciar sua batalha ");
+                scanf("%s");
+                batalha(personagem, monstro_1);
+            }
+            if(option == 2){
+                printf("\n");
+                print_hidra();
+                printf("\n\tAcha que so porque derrotou aquele inutil daquele Orc vai poder ir contra mim?\n\tVou adorar ver voce tentar...");
+                printf("\n");
+                printf("\tDigite algo para iniciar sua batalha ");
+                scanf("%s");
+                printf("\n");
+                batalha(personagem, monstro_2);
+            }
+            if(option == 6){
+            }
+        } while(option != 6);
+}
+
+/*void menu_principal(struct Personagem *personagem){
+    int option;
+    do{
+        printf("\n\t1. Sair em uma Aventura\n");
+        printf("\t2. Loja\n");
+        printf("\t3. Personagem\n");
+        printf("\t4. Lore dos Monstros\n");
+        printf("\t4. Abandonar Aventura\n");
+        printf("\n\tDigite uma das opcoes acima: ");
+        scanf("%d", &option);
+
+        if(option == 1){
+            menu_batalha(personagem);
+        }
+    } while(option =! 4);
+
+}*/
 
 int main(){
+
+    //ARMAS
     struct Arma armas[10];
     struct Arma arma_1 = nova_arma("espada",50,25);
     struct Arma arma_2 = nova_arma("machado",65,30);
     struct Arma arma_3 = nova_arma("muchaco",30,20);
-    struct Arma arma_4 = nova_arma("kunai",20,15);
+    struct Arma arma_4 = nova_arma("kunai",10,15);
 
     struct RepositorioArmas repositorio_armas= novo_repositorio_armas(armas);
 
@@ -555,6 +743,7 @@ int main(){
     add_arma_repositorio_armas(arma_3,&repositorio_armas);
     add_arma_repositorio_armas(arma_4,&repositorio_armas);
 
+    //ARMADURAS
     struct Armadura armaduras[10];
     struct Armadura armadura_1 = nova_armadura("armadura de couro",20,30);
     struct Armadura armadura_2 = nova_armadura("escama de peixe",30,45);
@@ -568,20 +757,8 @@ int main(){
     add_armadura_repositorio_armaduras(armadura_3,&repositorio_armaduras);
     add_armadura_repositorio_armaduras(armadura_4,&repositorio_armaduras);
 
-    // Inicio Monstros
+    //REPOSITORIO POCOES
 
-    struct Monstros monstros[10];
-    struct Monstros monstro_1 = novo_monstro("Orc Albino", 50, 60, 10);
-    struct Monstros monstro_2 = novo_monstro("Hidra", 150, 60, 20);
-    struct Monstros monstro_3 = novo_monstro("Gorgona", 150, 60, 30);
-    struct Monstros monstro_4 = novo_monstro("Dragao", 150, 60, 500);
-
-
-    struct RepositorioMonstros repositorio_monstros = novo_repositorio_monstros(monstros);
-
-    add_monstro_repositorio_monstros(monstro_1, &repositorio_monstros);
-
-    // Fim Monstros
     struct PocaoVida pocoes[10];
 
     struct PocaoVida p1=nova_pocao_vida("Cura Grande",50,80);
@@ -600,7 +777,7 @@ int main(){
     add_poacao_vida_repositorio_pocao_vida(p5,&repositorio_pocao_vida);
     add_poacao_vida_repositorio_pocao_vida(p6,&repositorio_pocao_vida);
 
-    struct Personagem personagem = novo_personagem (
+    struct Personagem personagem = novo_personagem(
                             "Cleiton",
                             150,
                             0,
@@ -608,55 +785,24 @@ int main(){
                             selecione_armadura_por_nome("armadura de couro",repositorio_armaduras),
                             repositorio_pocao_vida);
 
-    printf("Nome do personagem: %s\n",personagem.nome);
-    printf("Pontos de vida do personagem: %d\n",personagem.pontos_vida);
-    printf("Pontuacao atual do personagem: %d\n",personagem.pontos);
-    printf("Arma do personagem: %s\n",personagem.arma.nome);
-    printf("Armadura do personagem: %s\n",personagem.armadura.nome);
+        int option;
+        do{
+            printf("\n\t1. Sair em uma Aventura\n");
+            printf("\t2. Loja\n");
+            printf("\t3. Personagem\n");
+            printf("\t4. Lore dos Monstros\n");
+            printf("\t4. Abandonar Aventura\n");
+            printf("\n\tDigite uma das opcoes acima: ");
+            scanf("%d", &option);
 
-<<<<<<< HEAD
-    
-    printf("Primeiro monstro: %s\n", monstro_1.nome_monstro);
-    printf("Vida do monstro: %d\n", monstro_1.vida_monstro);
-    print_mago();
-    
-    
-    
-    //printar_pocoes_disponiveis(repositorio_pocao_vida);
-    //remova_pocao_vida_por_nome("Cura Pequena",&repositorio_pocao_vida);  
-    printar_pocoes_disponiveis(repositorio_pocao_vida);  
-=======
-    //print_mago();
-
-    printf("Primeiro monstro: %s\n", monstro_1.nome_monstro);
-    printf("Vida do monstro: %d\n", monstro_1.vida_monstro);
-    printf("Dano do monstro: %d\n",monstro_1.dano);
-
-
-    batalha(personagem, monstro_1);
+            if(option == 1){
+                menu_batalha(&personagem);
+            }
+        } while(option =! 4);
 
 
 
-
-    //printar_pocoes_disponiveis(repositorio_pocao_vida);
-    remova_pocao_vida_por_nome("Cura Pequena",&repositorio_pocao_vida);
-    //printar_pocoes_disponiveis(repositorio_pocao_vida);
-
-    //printf("\n");
-    //printf("Batalha 1:\n");
-    //batalha(personagem, monstro_1);
-    //printf("\n");
-    //printf("Batalha 2:\n");
-    //batalha(personagem, monstro_2);
-    //printf("\n");
-    //printf("Batalha 3:\n");
-    //batalha(personagem, monstro_3);
-    //printf("\n");
-    //printf("Batalha 4:\n");
-    //batalha_defesa(personagem, monstro_4);
-    //printf("\n");
->>>>>>> refs/remotes/origin/master
-
+    //menu_principal(novo_personagem);
 
     return 0;
 }
