@@ -306,23 +306,48 @@ void remova_pocao_vida_por_nome(char * nome_pocao, struct RepositorioPocaoVida *
 
 }
 
-/*void printar_pocoes_disponiveis(struct RepositorioPocaoVida repositorio){
-    int i,j;
-    int auxi=0;
-    int cont=0;
-    char * pocoes_disponiveis[5];
-    printf("Pocoes de Cura disponiveis:\n");
-
-    for(i = 0; i < repositorio.proxima_posicao_disponivel; i++){
-        for(j = i; j<repositorio.proxima_posicao_disponivel; j++){
-            if(strcmp(repositorio.pocoes_vida[i].nome,repositorio.pocoes_vida[j].nome)==0){
-                pocoes_disponiveis[cont]=repositorio.pocoes_vida[j].nome;
-            }
-            cont++;
+int quantidade_pocao_disponivel(char * pocao,struct RepositorioPocaoVida repositorio){
+    int retorno,i;
+    retorno=0;
+    for(i=0;i<repositorio.proxima_posicao_disponivel;i++){
+        if(strcmp(repositorio.pocoes_vida[i].nome,pocao)==0){
+            retorno++;
         }
-        printf("\t%d - %s\n", i+1, repositorio.pocoes_vida[i].nome);
     }
-}*/
+    return retorno;
+}
+
+int possui_pocao(char * pocao,char lista_pocoes[10][50],int tamanho_lista){
+    int retorno,i;
+    retorno=-1;
+    for(i=0;i<tamanho_lista;i++){
+        if(strcmp(lista_pocoes[i],pocao)==0){
+            retorno=0;
+        }
+    }
+    return retorno;
+}
+
+void printar_pocoes_disponiveis(struct RepositorioPocaoVida repositorio){
+    int i,j,cont;
+    int proxima_posicao_pocoes_disponiveis=0;
+    char pocoes_disponiveis[10][50];
+    printf("Pocoes de Cura disponiveis:\n");
+    
+    for(i=0;i<repositorio.proxima_posicao_disponivel;i++){
+        cont=0;
+        for(j=i;j<repositorio.proxima_posicao_disponivel;j++){
+            if(strcmp(repositorio.pocoes_vida[i].nome,repositorio.pocoes_vida[j].nome)==0 && cont==0 && possui_pocao(repositorio.pocoes_vida[j].nome,pocoes_disponiveis,proxima_posicao_pocoes_disponiveis)!=0){
+                strcpy(pocoes_disponiveis[proxima_posicao_pocoes_disponiveis],repositorio.pocoes_vida[i].nome);
+                proxima_posicao_pocoes_disponiveis++;
+                cont++;               
+            }
+        } 
+    }
+    for(i=0; i<proxima_posicao_pocoes_disponiveis;i++){
+        printf("\t%s  - - - -  x%d\n",pocoes_disponiveis[i],quantidade_pocao_disponivel(pocoes_disponiveis[i],repositorio));
+    }
+}
 
 struct Personagem{
     char nome[100];
@@ -431,6 +456,7 @@ void print_mago(){
     printf("(c) 2022 topster.de############################################################\n");
 }
 
+
 int main(){
     struct Arma armas[10];
     struct Arma arma_1 = nova_arma("espada",50,25);
@@ -471,14 +497,20 @@ int main(){
     struct PocaoVida pocoes[10];
     
     struct PocaoVida p1=nova_pocao_vida("Cura Grande",50,80);
-    struct PocaoVida p2=nova_pocao_vida("Cura Media",25,40);
-    struct PocaoVida p3=nova_pocao_vida("Cura Pequena",12,20);
+    struct PocaoVida p2=nova_pocao_vida("Cura Grande",50,80);
+    struct PocaoVida p3=nova_pocao_vida("Cura Media",25,40);
+    struct PocaoVida p4=nova_pocao_vida("Cura Grande",50,80);
+    struct PocaoVida p5=nova_pocao_vida("Cura Media",25,40);
+    struct PocaoVida p6=nova_pocao_vida("Cura Pequena",12,20);
 
     struct RepositorioPocaoVida repositorio_pocao_vida=novo_repositorio_pocao_vida(pocoes);
 
     add_poacao_vida_repositorio_pocao_vida(p1,&repositorio_pocao_vida);
     add_poacao_vida_repositorio_pocao_vida(p2,&repositorio_pocao_vida);
     add_poacao_vida_repositorio_pocao_vida(p3,&repositorio_pocao_vida);
+    add_poacao_vida_repositorio_pocao_vida(p4,&repositorio_pocao_vida);
+    add_poacao_vida_repositorio_pocao_vida(p5,&repositorio_pocao_vida);
+    add_poacao_vida_repositorio_pocao_vida(p6,&repositorio_pocao_vida);
 
     struct Personagem personagem = novo_personagem (
                             "Cleiton",
@@ -494,15 +526,15 @@ int main(){
     printf("Arma do personagem: %s\n",personagem.arma.nome);
     printf("Armadura do personagem: %s\n",personagem.armadura.nome);
 
-    print_mago();
+    
     printf("Primeiro monstro: %s\n", monstro_1.nome_monstro);
-    printf("Vida do monstro: %d", monstro_1.vida_monstro);
-
+    printf("Vida do monstro: %d\n", monstro_1.vida_monstro);
+    print_mago();
     
     
     
-    printar_pocoes_disponiveis(repositorio_pocao_vida);
-    remova_pocao_vida_por_nome("Cura Pequena",&repositorio_pocao_vida);  
+    //printar_pocoes_disponiveis(repositorio_pocao_vida);
+    //remova_pocao_vida_por_nome("Cura Pequena",&repositorio_pocao_vida);  
     printar_pocoes_disponiveis(repositorio_pocao_vida);  
 
 
