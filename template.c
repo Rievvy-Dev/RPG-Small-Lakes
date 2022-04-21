@@ -22,9 +22,10 @@ struct RepositorioArmas{
     int proxima_posicao_disponivel;
 };
 
-struct RepositorioArmas novo_repositorio_armas(struct Arma *armas){
+struct RepositorioArmas novo_repositorio_armas(){
     struct RepositorioArmas repositorio;
     int i;
+    struct Arma armas[10];
     for(i = 0; i < sizeof(armas)/sizeof(armas[0]); i++){
         repositorio.armas[i]=armas[i];
     }
@@ -41,13 +42,6 @@ void add_arma_repositorio_armas(struct Arma arma, struct RepositorioArmas* repos
     repositorio_armas->proxima_posicao_disponivel += 1;
 }
 
-void printar_armas_disponiveis(struct RepositorioArmas repositorio){
-    int i;
-    printf("Armas disponiveis:\n");
-    for(i = 0; i < repositorio.proxima_posicao_disponivel; i++){
-        printf("\t%d - %s\n", i+1, repositorio.armas[i].nome);
-    }
-}
 
 struct Arma selecione_arma_por_id(int indice_arma, struct RepositorioArmas repositorio_armas){
     struct Arma arma_retorno = repositorio_armas.armas[indice_arma];
@@ -65,6 +59,28 @@ struct Arma selecione_arma_por_nome(char *nome_arma, struct RepositorioArmas rep
 
     return arma_retorno;
 }
+
+void ver_caracteristicas_arma(struct Arma arma){
+    printf("\t Nome: %s // Dano: %d // Preco: %d \n\n",arma.nome,arma.dano,arma.pontos_preco);
+}
+
+void printar_caracteristicas_armas_disponiveis(struct RepositorioArmas repositorio){
+    int i;
+    printf("\tArmas disponiveis:\n\n");
+    for(i = 0; i < repositorio.proxima_posicao_disponivel; i++){
+        printf("\t%d", i+1);
+        ver_caracteristicas_arma(repositorio.armas[i]);
+    }
+}
+
+void printar_armas_disponiveis(struct RepositorioArmas repositorio){
+    int i;
+    printf("Armas disponiveis:\n");
+    for(i = 0; i < repositorio.proxima_posicao_disponivel; i++){
+        printf("\t%d - %s\n", i+1, repositorio.armas[i].nome);
+    }
+}
+
 
 //exemplo de uso: mudar_nome_arma("espada flamejante",&arma_1);
 
@@ -125,9 +141,10 @@ struct RepositorioArmaduras{
     int proxima_posicao_disponivel;
 };
 
-struct RepositorioArmaduras novo_repositorio_armaduras(struct Armadura *armaduras){
+struct RepositorioArmaduras novo_repositorio_armaduras(){
     struct RepositorioArmaduras repositorio;
     int i;
+    struct Armadura armaduras[10];
     for(i = 0; i < sizeof(armaduras)/sizeof(armaduras[0]); i++){
         repositorio.armaduras[i] = armaduras[i];
     }
@@ -140,7 +157,20 @@ struct RepositorioArmaduras novo_repositorio_armaduras(struct Armadura *armadura
 //add_armadura_repositorio_armaduras(armadura_1,&repositorio_armaduras);
 void add_armadura_repositorio_armaduras(struct Armadura armadura, struct RepositorioArmaduras* repositorio_armaduras){
     repositorio_armaduras->armaduras[repositorio_armaduras->proxima_posicao_disponivel] = armadura;
-    repositorio_armaduras->proxima_posicao_disponivel += 1;
+    repositorio_armaduras->proxima_posicao_disponivel ++;
+}
+
+void ver_caracteristicas_armadura(struct Armadura armadura){
+    printf("\t Nome: %s // Defesa: %d // Preco: %d \n\n",armadura.nome,armadura.defesa,armadura.pontos_preco);
+}
+
+void printar_caracteristicas_armaduras_disponiveis(struct RepositorioArmaduras repositorio){
+    int i;
+    printf("\tArmaduras disponiveis:\n\n");
+    for(i = 0; i < repositorio.proxima_posicao_disponivel; i++){
+        printf("\t%d", i+1);
+        ver_caracteristicas_armadura(repositorio.armaduras[i]);
+    }
 }
 
 void printar_armaduras_disponiveis(struct RepositorioArmaduras repositorio){
@@ -335,6 +365,19 @@ int possui_pocao(char * pocao,char lista_pocoes[10][50],int tamanho_lista){
     return retorno;
 }
 
+void printar_caracteristas_pocao(struct PocaoVida pocao){
+    printf("\t Nome: %s // Cura Efetuada: %d // Preco: %d \n\n",pocao.nome,pocao.cura,pocao.pontos);
+}
+
+void printar_caracteristicas_pocoes(struct RepositorioPocaoVida repositorio){
+    int i;
+    printf("\tPocoes disponiveis:\n\n");
+    for(i=0; i<repositorio.proxima_posicao_disponivel;i++){
+        printf("\t%d.",i+1);
+        printar_caracteristas_pocao(repositorio.pocoes_vida[i]);
+    }
+}
+
 void printar_pocoes_disponiveis(struct RepositorioPocaoVida repositorio){
     int i,j,cont;
     int proxima_posicao_pocoes_disponiveis=0;
@@ -354,15 +397,6 @@ void printar_pocoes_disponiveis(struct RepositorioPocaoVida repositorio){
     for(i=0; i<proxima_posicao_pocoes_disponiveis;i++){
         printf("\t%s  - - - -  x%d\n",pocoes_disponiveis[i],quantidade_pocao_disponivel(pocoes_disponiveis[i],repositorio));
     }
-}
-
-struct Loja{
-    struct RepositorioArmas repositorio_armas;
-    struct RepositorioArmaduras repositorio_armaduras;
-    struct RepositorioPocaoVida repositorio_pocao;
-}
-struct Loja nova_loja(struct RepositorioArmas armas_disponiveis,struct RepositorioArmaduras armaduras_disponiveis,struct RepositorioPocaoVida pocoes_disponiveis){]
-    struct Loja loja;
 }
 
 struct Personagem{
@@ -395,6 +429,114 @@ void ver_status_personagem(struct Personagem personagem){
     printf("Nome da Armadura: %s -- Durabilidade: %d\n", personagem.armadura.nome, personagem.armadura.defesa);
     // Lembrar de ver a quantidade de po��es dispon�veis no personagem.
 }
+
+
+struct Loja{
+    struct RepositorioArmas repositorio_armas;
+    struct RepositorioArmaduras repositorio_armaduras;
+    struct RepositorioPocaoVida repositorio_pocoes;
+};
+
+struct Loja nova_loja(struct RepositorioArmas armas_disponiveis,struct RepositorioArmaduras armaduras_disponiveis,struct RepositorioPocaoVida pocoes_disponiveis){
+    struct Loja loja;
+    loja.repositorio_armas=armas_disponiveis;
+    loja.repositorio_armaduras=armaduras_disponiveis;
+    loja.repositorio_pocoes=pocoes_disponiveis;
+    return loja;
+}
+
+struct Loja iniciar_loja(){
+    struct Arma arma_1 = nova_arma("Espada de Ferro",30,100);
+    struct Arma arma_2 = nova_arma("Espada de Ferro Encantada",35,175);
+    struct Arma arma_3 = nova_arma("Agulha Negra",45,270);
+    struct Arma arma_4 = nova_arma("Brilho do Luar",60,400);
+    struct Arma arma_5 = nova_arma("Laminas de Nichirin",90,650);
+
+    struct RepositorioArmas repositorio_armas_loja=novo_repositorio_armas();
+
+    add_arma_repositorio_armas(arma_1,&repositorio_armas_loja);
+    add_arma_repositorio_armas(arma_2,&repositorio_armas_loja);
+    add_arma_repositorio_armas(arma_3,&repositorio_armas_loja);
+    add_arma_repositorio_armas(arma_4,&repositorio_armas_loja);
+    add_arma_repositorio_armas(arma_5,&repositorio_armas_loja);
+    
+
+    struct Armadura armadura_1 = nova_armadura("Cota de Malha",30,100);
+    struct Armadura armadura_2 = nova_armadura("Cota de Malha Encantada",60,175);
+    struct Armadura armadura_3 = nova_armadura("Armadura de Couro de Javali Magico",80,270);
+    struct Armadura armadura_4 = nova_armadura("Armadura Esguia de Behir",170,400);
+    struct Armadura armadura_5 = nova_armadura("Mithril Skin",280,650);
+
+    struct RepositorioArmaduras repositorio_armaduras_loja=novo_repositorio_armaduras();
+    
+    add_armadura_repositorio_armaduras(armadura_1,&repositorio_armaduras_loja);
+    add_armadura_repositorio_armaduras(armadura_2,&repositorio_armaduras_loja);
+    add_armadura_repositorio_armaduras(armadura_3,&repositorio_armaduras_loja);
+    add_armadura_repositorio_armaduras(armadura_4,&repositorio_armaduras_loja);
+    add_armadura_repositorio_armaduras(armadura_5,&repositorio_armaduras_loja);
+
+    struct PocaoVida p1=nova_pocao_vida("Cura Grande",65,100);
+    struct PocaoVida p2=nova_pocao_vida("Cura Media",30,50);
+    struct PocaoVida p3=nova_pocao_vida("Cura Pequena",10,25);
+    
+    struct RepositorioPocaoVida repositorio_pocoes_loja=novo_repositorio_pocao_vida();
+
+    add_poacao_vida_repositorio_pocao_vida(p1,&repositorio_pocoes_loja);
+    add_poacao_vida_repositorio_pocao_vida(p2,&repositorio_pocoes_loja);
+    add_poacao_vida_repositorio_pocao_vida(p3,&repositorio_pocoes_loja);
+    
+    
+    struct Loja loja=nova_loja(repositorio_armas_loja,repositorio_armaduras_loja,repositorio_pocoes_loja);
+
+    return loja;   
+}
+
+void print_menu_loja(char * nome_aventureiro){
+    printf("\n");
+    printf("\tQue tal ficar mais forte para a jornada %s ?\n",nome_aventureiro);
+    printf("\n");
+    printf("\tCompre qualquer coisa que lhe for util:\n");
+    printf("\n\t1. Armas\n");
+    printf("\t2. Armaduras\n");
+    printf("\t3. Pocoes\n");
+    printf("\t4. Sair\n");
+}
+
+void print_menu_loja_armas(struct Loja loja){
+    printar_caracteristicas_armas_disponiveis(loja.repositorio_armas);
+}
+
+void print_menu_loja_armaduras(struct Loja loja){
+    printar_caracteristicas_armaduras_disponiveis(loja.repositorio_armaduras);
+}
+
+void print_menu_loja_pocoes(struct Loja loja){
+    printar_caracteristicas_pocoes(loja.repositorio_pocoes);
+}
+//void print_menu_loja_armadura
+
+void menu_loja(struct Personagem * personagem){
+    struct Loja loja= iniciar_loja();
+    int option=0;
+
+    while (option!=4){
+        print_menu_loja(personagem->nome);
+        printf("\n\tDigite uma das opcoes acima: ");
+        scanf("%d",&option);
+
+        if(option==1){
+            print_menu_loja_armas(loja);
+        }else if(option==2){
+            print_menu_loja_armaduras(loja);
+        }else if(option==3){
+            print_menu_loja_pocoes(loja);
+        }
+        else if(option==4){
+            menu_principal(personagem);
+        }
+    }
+}
+
 
 // Inicio Fun��es de Batalha
 
@@ -724,19 +866,6 @@ void menu_batalha(struct Personagem *personagem){
             }
         } while(option != 6);
 }
-void print_menu_loja(char * nome_aventureiro){
-    printf("\n");
-    printf("\tQue tal ficar mais forte para a jornada %s ?\n",nome_aventureiro);
-    printf("\n");
-    printf("\tCompre qualquer coisa que lhe for util:\n");
-    printf("\n\t1. Armas\n");
-    printf("\t2. Armaduras\n");
-    printf("\t3. Pocoes\n");
-    printf("\t4. Sair\n");
-    printf("\n\tDigite uma das opcoes acima: ");
-
-}
-
 
 void print_menu_principal(){
     printf("\n\t1. Sair em uma Aventura\n");
@@ -756,7 +885,7 @@ void menu_principal(struct Personagem *personagem){
         if(option == 1){
             menu_batalha(personagem);
         }else if(option==2){
-            print_menu_loja(personagem->nome);
+            menu_loja(personagem);
         }
     } while(option =! 4);
 
