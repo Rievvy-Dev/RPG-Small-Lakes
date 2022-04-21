@@ -1,0 +1,64 @@
+Vale Folks.
+Um lugar por muito tempo pacífico, considerado por muitos o próprio Éden, banhado pelas águas cristalinas e correntes
+do Rio de Jollya, dava para escutar os cantos dos pássaros ecoando no vento e das crianças brincando por entre as parreiras
+de uva, o cheiro de lírio e tulipas arrojava os campos e deixava tudo perfeito, até tudo mudar...
+Lerry de Green Falls, um mensageiro que andava pelos arredores de SmallLakes distribuindo correspondências de todos
+os quatro reinos, infelizmente estava no lugar errado e na hora errada quando um portal se abriu bem na sua frente,
+era o próprio abismo, o limbo, o vazio, onde todas as criaturas que a muito tinham sido expulsas e banidas pelos humanos
+habitavam, estas criaturas sobreviviam num infinito jogo voráz, onde apenas os mais fortes sobreviviam, o lar de dragões e
+todo tipo de criatura amedrontadora, agora tinham a sua saída, uma liberdade, a abertura do portal foi o que eles 
+esperaram por milhões de anos, e agora toda a espera e sua luta por sobrevivência tinha sentido...
+O que restava agora é que O GUERREIRO ESCOLHIDO conseguisse nos salvar, o único com habilidade suficiente para derrotar 
+as criaturas, fechar o portal e salvar o nosso reino...
+Aperte enter para continuar...
+
+Tutorial.
+-Crie seu personagem, após isto você receberá um kit inicial de armadura e uma espada de madeira, mate seu primeiro
+inimigo para provar seu valor.
+-Cada inimigo da uma quantidade diferente de pontos de gloria, use estes pontos para trocar por equipamentos na loja, 
+você pode acessar a loja a partir do menu de opções.
+-Lembre-se de se equipar com armas e armaduras mais poderosas para progredir na aventura, a dificuldade dos inimigos vai 
+aumentando no decorrer da aventura e somente será possível avançar com os equipamentos adequados.
+-Você pode comprar quantas armaduras quiser e fazer um verdadeiro arsenal de armas, alterne entre os equipamentos para 
+economizar pontos de glória e não usar seus melhores equipamentos com as criaturas mais fracas.
+-Cada monstro causa uma quantidade diferente de dano, caso sua armadura suporte o dano do monstro não será descontado 
+da sua vida, caso contrário seu personagem perderá de vida o que a sua armadura não aguentar, para recuperar esta vida
+compre poções de cura na loja com o Dasenberg o Mago. 
+-Caso sua vida chegue a zero vc perde o jogo e terá que iniciar novamente.
+-Derrote o último Boss para salvar SmallLakes, Boa Sorte aventureiro...
+
+Digite o nome do seu guerreiro:
+
+####################################################################################################################
+
+Espada de Madeira e Armadura de Couro 
+Espada de Ferro  e Armadura de Ferro
+Espada de Arcanite e Armadura de Arcanite
+Espada de Dragon Steel e Armadura de Dragon Steel
+Espada Berserker e Armaguarda SmallLakes
+
+####################################################################################################################
+
+Batalhas //poções serem usadas com menos de 50 de vida
+Menu
+
+1 Sair numa Aventura (Batalha);
+2 Loja;
+3 Personagem;
+4 Abandonar Partida;
+
+1 (1.monstro1 2.monstro2 3.monstro3 4.monstro4 5.monstro5)
+2 (1.Armas 2.Armaduras 3.Poções)
+
+
+            if(monstro_5.vida_monstro <= 0 && personagem->pontos_vida > 0){
+                printf("\tAquele reino que por muito tempo foi pacifico e que derrepente havia sido devastado por todo tipo de criatura, estava seguro novamente.\n");
+                printf("\tEm meio a tanto caos, um jovem guerreiro com um destino travado a dezenas de geraçoes atras assumiu toda a responsabilidade de salvar o\n");
+                printf("\tlugar que ama ninguem conhecia sua verdadeira historia, apenas sabiam que ele era um heroi e que poderiam contar com ele sempre que \n");
+                printf("\tcorressem perigo, infelizmente as grandes batalhas travadas deixaram lacunas em sua alma, o vazio nao era algo para se brincar, e ate\n");
+                printf("\tpara ele foi exaustivo e tentador, os espacos em branco na sua alma nunca mais poderiam ser preenchidos, suas memorias nunca mais voltariam\n");
+                printf("\tpor completo, por sorte o portal tinha se fechado completamente e o tranquilo Vale Folks de SmallLakes podia voltar a sua rotina normal e\n");
+                printf("\tpacifica, nao existiam mais perigos para se preocupar, pelo menos era o que parecia...\n");
+                printf("\tPARABENS POR COMPLETAR O JOGO!! OBRIGADO POR JOGAR!!\n");
+                printf("\n\tDirected by, Thiago Almeida and J.B. Neto");
+            }
