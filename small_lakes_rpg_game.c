@@ -492,14 +492,14 @@ struct Arma selecione_arma_por_nome(char *nome_arma, struct RepositorioArmas rep
 }
 
 void ver_caracteristicas_arma(struct Arma arma){
-    printf("\t Nome: %s // Dano: %d // Preco: %d \n\n",arma.nome,arma.dano,arma.pontos_preco);
+    printf("Nome: %s // Dano: %d // Preco: %d \n\n",arma.nome,arma.dano,arma.pontos_preco);
 }
 
 void printar_caracteristicas_armas_disponiveis(struct RepositorioArmas repositorio){
     int i;
     printf("\n\t*** ARMAS DISPONIVEIS ***\n");
     for(i = 0; i < repositorio.proxima_posicao_disponivel; i++){
-        printf("\t%d", i+1);
+        printf("\t%d. ", i+1);
         ver_caracteristicas_arma(repositorio.armas[i]);
     }
 }
@@ -592,14 +592,14 @@ void add_armadura_repositorio_armaduras(struct Armadura armadura, struct Reposit
 }
 
 void ver_caracteristicas_armadura(struct Armadura armadura){
-    printf("\t Nome: %s // Defesa: %d // Preco: %d \n\n",armadura.nome,armadura.defesa,armadura.pontos_preco);
+    printf("Nome: %s // Defesa: %d // Preco: %d \n\n",armadura.nome,armadura.defesa,armadura.pontos_preco);
 }
 
 void printar_caracteristicas_armaduras_disponiveis(struct RepositorioArmaduras repositorio){
     int i;
     printf("\n\t*** ARMADURAS DISPONIVEIS ***\n\n");
     for(i = 0; i < repositorio.proxima_posicao_disponivel; i++){
-        printf("\t%d", i+1);
+        printf("\t%d. ", i+1);
         ver_caracteristicas_armadura(repositorio.armaduras[i]);
     }
 }
@@ -825,7 +825,7 @@ int possui_pocao(char * pocao,char lista_pocoes[10][50],int tamanho_lista){
 }
 
 void printar_caracteristas_pocao(struct PocaoVida pocao){
-    printf("\t Nome: %s // Cura Efetuada: %d // Preco: %d \n\n",pocao.nome,pocao.cura,pocao.pontos);
+    printf(" Nome: %s // Cura Efetuada: %d // Preco: %d \n\n",pocao.nome,pocao.cura,pocao.pontos);
 }
 
 void printar_caracteristicas_pocoes(struct RepositorioPocaoVida repositorio){
@@ -896,7 +896,7 @@ void printar_menu_pocoes_disponiveis(struct Personagem *personagem){
     printf("\n\t1.Pocao de Cura Grande   - - - -  x%d\n",quantidade_pocao_disponivel("Pocao de Cura Grande",personagem->repositorio_pocao_vida));
     printf("\t2.Pocao de Cura Media    - - - -  x%d\n",quantidade_pocao_disponivel("Pocao de Cura Media",personagem->repositorio_pocao_vida));
     printf("\t3.Pocao de Cura Pequena  - - - -  x%d\n",quantidade_pocao_disponivel("Pocao de Cura Pequena",personagem->repositorio_pocao_vida));
-    printf("\t4.Para Sair\n");
+    printf("\t4.Sair\n");
 }
 
 void tomar_pocao(struct PocaoVida  pocao, struct Personagem *personagem){
@@ -918,7 +918,7 @@ void menu_tomar_pocao(struct Personagem *personagem){
     int indice_pocao_cura;
     do{
         printar_menu_pocoes_disponiveis(personagem);
-        printf("\tDigite o nome da pocao que você quer tomar: ");
+        printf("\tDigite o nome da pocao que voce quer tomar: ");
         scanf("%d", &option);
         
         if(option==1){
@@ -1072,6 +1072,10 @@ int venda_pocao_possivel(struct PocaoVida pocao,struct Personagem *personagem){
     return retorno;
 }
 
+void printar_pontuacao_atual_personagem(int pontos_personagem){
+    printf("\n\t*** PONTOS ATUAIS DO PERSONAGEM: %d ***\n", pontos_personagem);
+}
+
 void vender_pocao_personagem(struct PocaoVida pocao,struct Personagem * personagem){
     if(venda_pocao_possivel(pocao,personagem)==0){
         add_poacao_vida_repositorio_pocao_vida(pocao,&personagem->repositorio_pocao_vida);
@@ -1102,7 +1106,7 @@ void print_menu_loja(char * nome_aventureiro){
 
 void print_menu_loja_armas(struct Loja loja){
     printar_caracteristicas_armas_disponiveis(loja.repositorio_armas);
-    printf("\n\t%d\t Sair",loja.repositorio_armas.proxima_posicao_disponivel+1);
+    printf("\t%d. Sair",loja.repositorio_armas.proxima_posicao_disponivel+1);
 }
 
 void menu_loja_armas(struct Loja loja,struct Personagem *personagem){
@@ -1110,6 +1114,7 @@ void menu_loja_armas(struct Loja loja,struct Personagem *personagem){
     int option;
 
     while (option!=loja.repositorio_armas.proxima_posicao_disponivel+1){
+        printar_pontuacao_atual_personagem(personagem->pontos);
         print_menu_loja_armas(loja);
         printf("\nSelecione a arma que você gostaria de comprar: ");
         scanf("%d",&option);
@@ -1123,7 +1128,7 @@ void menu_loja_armas(struct Loja loja,struct Personagem *personagem){
 
 void print_menu_loja_armaduras(struct Loja loja){
     printar_caracteristicas_armaduras_disponiveis(loja.repositorio_armaduras);
-    printf("\n\t%d\t Sair",loja.repositorio_armaduras.proxima_posicao_disponivel+1);
+    printf("%d.\t Sair",loja.repositorio_armaduras.proxima_posicao_disponivel+1);
 }
 
 void menu_loja_armaduras(struct Loja loja,struct Personagem *personagem){
@@ -1131,6 +1136,7 @@ void menu_loja_armaduras(struct Loja loja,struct Personagem *personagem){
     int option;
 
     while (option!=loja.repositorio_armaduras.proxima_posicao_disponivel+1){
+        printar_pontuacao_atual_personagem(personagem->pontos);
         print_menu_loja_armaduras(loja);
         printf("\nSelecione a armadura que você gostaria de comprar: ");
         scanf("%d",&option);
@@ -1144,7 +1150,7 @@ void menu_loja_armaduras(struct Loja loja,struct Personagem *personagem){
 
 void print_menu_loja_pocoes(struct Loja loja){
     printar_caracteristicas_pocoes(loja.repositorio_pocoes);
-    printf("\n\t%d\t Sair",loja.repositorio_pocoes.proxima_posicao_disponivel+1);
+    printf("\t%d. Sair",loja.repositorio_pocoes.proxima_posicao_disponivel+1);
 }
 
 void menu_loja_pocoes(struct Loja loja,struct Personagem *personagem){
@@ -1152,8 +1158,9 @@ void menu_loja_pocoes(struct Loja loja,struct Personagem *personagem){
     int option;
 
     while (option!=loja.repositorio_pocoes.proxima_posicao_disponivel+1){
+        printar_pontuacao_atual_personagem(personagem->pontos);
         print_menu_loja_pocoes(loja);
-        printf("\nSelecione a pocao que você gostaria de comprar: ");
+        printf("\n\tSelecione a pocao que voce gostaria de comprar: ");
         scanf("%d",&option);
 
         if(option==loja.repositorio_pocoes.proxima_posicao_disponivel+1){
@@ -1345,6 +1352,7 @@ void menu_batalha(struct Personagem *personagem){
             if(option == 1){
                 printf("\n");
                 print_orc();
+                ver_status_monstro(monstro_1);
                 printf("\n\tQuem ousa interromper meu almoco?? \n\tEspero que esteja preparado aventureiro seu destino sera o mesmo daquela pilha de ossos\n");
                 printf("\n");
                 printf("\tDeseja iniciar a batalha? Digite [s] para batalhar e digite [n] para voltar ao menu de batalha: ");
@@ -1360,6 +1368,7 @@ void menu_batalha(struct Personagem *personagem){
             if(option == 2){
                 printf("\n");
                 print_hidra();
+                ver_status_monstro(monstro_2);
                 printf("\n\tAcha que so porque derrotou aquele Orc inutil vai poder ir contra mim?\n\tVou adorar ver voce tentar...\n");
                 printf("\n");
                 printf("\tDeseja iniciar a batalha? Digite [s] para batalhar e digite [n] para voltar ao menu de batalha: ");
@@ -1375,6 +1384,7 @@ void menu_batalha(struct Personagem *personagem){
             if(option == 3){
                 printf("\n");
                 print_quimera();
+                ver_status_monstro(monstro_3);
                 printf("\n\tOra ora se nao e o Aventureiro de quem tenho escutado falar, fico impressionado que tenha chegado tao longe.\n\tMas sua sorte esta prestes a acabar, voce nao passara daqui.\n");
                 printf("\n");
                 printf("\tDeseja iniciar a batalha? Digite [s] para batalhar e digite [n] para voltar ao menu de batalha: ");
@@ -1390,6 +1400,7 @@ void menu_batalha(struct Personagem *personagem){
             if(option == 4){
                 printf("\n");
                 print_dragao();
+                ver_status_monstro(monstro_4);
                 printf("\n\tQue surpresa, meu mestre disse para tomarmos cuidado com o tal guerreiro escolhido, \n\tmas nao achei que chegaria tao longe\n\tO que te motiva a ir tao longe para salvar este lugar?\n\t... \n\tNenhuma palavra entao? Ok, se prepare para terminar sua jornada aqui.");
                 printf("\n");
                 printf("\tDeseja iniciar a batalha? Digite [s] para batalhar e digite [n] para voltar ao menu de batalha: ");
@@ -1405,6 +1416,7 @@ void menu_batalha(struct Personagem *personagem){
             if(option == 5){
                 printf("\n");
                 print_shadow_lord();
+                ver_status_monstro(monstro_5);
                 printf("\n\tEntao nos encontramos finalmente, hoje um de nos caira, nao existira um meio termo.\n\tVejo o quao forte voce se tornou, foi uma ardua jornada e voce superou todos os desafios,\n\tmas agora chegou a hora de provar que valeu a pena.");
                 printf("\n");
                 printf("\n");
@@ -1467,7 +1479,7 @@ void start_game(){
     print_tutorial();
     printf("\tDigite o nome do seu guerreiro: ");
     char  nome_personagem[100];
-    scanf("%s",&nome_personagem);
+    scanf("%[^\n]s",&nome_personagem);
 
     struct Personagem personagem = novo_personagem(
                             nome_personagem,
