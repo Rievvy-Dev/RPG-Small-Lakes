@@ -992,9 +992,9 @@ struct Loja iniciar_loja(){
     
 
     struct Armadura armadura_1 = nova_armadura("Armadura de Couro",60,20);
-    struct Armadura armadura_2 = nova_armadura("Espirito Berserker",240,180);
-    struct Armadura armadura_3 = nova_armadura("Armadura de Arcanite",360,380);
-    struct Armadura armadura_4 = nova_armadura("Armadura de Dragon Steel",810,1800);
+    struct Armadura armadura_2 = nova_armadura("Espirito Berserker",480,180);
+    struct Armadura armadura_3 = nova_armadura("Armadura de Arcanite",1100,380);
+    struct Armadura armadura_4 = nova_armadura("Armadura de Dragon Steel",3000,1800);
     struct Armadura armadura_5 = nova_armadura("Armaguarda SmallLakes", 6000,8000);
 
     struct RepositorioArmaduras repositorio_armaduras_loja=novo_repositorio_armaduras();
@@ -1297,9 +1297,9 @@ void boss_fight(struct Personagem *personagem, struct Monstros monstro){
                 printf("\n");
                 printf("\tAquele reino que por muito tempo foi pacifico e que derrepente havia sido devastado por todo tipo de criatura,\n");
                 printf("\testava seguro novamente. Em meio a tanto caos, um jovem guerreiro com um destino travado a dezenas de geracoes,\n");
-                printf("\tassumiu toda a responsabilidade de salvar o lugar que ama, ninguem conhecia sua verdadeira historia ele foi\n");
-                printf("\tapenas sabiam que ele era um heroi e que poderiam contar com ele sempre que corressem perigo, infelizmente \n");
-                printf("\tas grandes batalhas travadas deixaram lacunas em sua alma, o vazio nao era algo para se brincar, e ate para \n");
+                printf("\tassumiu toda a responsabilidade de salvar o lugar que ama, ninguem conhecia sua verdadeira historia apenas\n");
+                printf("\tsabiam que ele era um heroi e que poderiam contar com ele sempre que corressem perigo, infelizmente as grandes\n");
+                printf("\tbatalhas travadas deixaram lacunas em sua alma, o vazio nao era algo para se brincar, e ate para ele foi\n");
                 printf("\texaustivo e tentador, os espacos em branco na sua alma nunca mais poderiam ser preenchidos, suas memorias nunca\n");
                 printf("\tmais voltariam por completo, por sorte o portal tinha se fechado completamente e o tranquilo Vale Folks de\n");
                 printf("\tSmallLakes podia voltar a sua rotina normal e pacifica, nao existiam mais perigos para se preocupar\n");
@@ -1331,9 +1331,9 @@ void menu_batalha(struct Personagem *personagem){
     //MONSTROS
     struct Monstros monstros[10];
     struct Monstros monstro_1 = novo_monstro("Orc Esqueleto", 100, 100, 30);
-    struct Monstros monstro_2 = novo_monstro("Hidra", 280, 150, 50);
-    struct Monstros monstro_3 = novo_monstro("Quimera", 570, 300, 90);
-    struct Monstros monstro_4 = novo_monstro("Dragao do Abismo", 1200, 500, 180);
+    struct Monstros monstro_2 = novo_monstro("Hidra", 280, 500, 50);
+    struct Monstros monstro_3 = novo_monstro("Quimera", 570, 1100, 90);
+    struct Monstros monstro_4 = novo_monstro("Dragao do Abismo", 1200, 4800, 180);
     struct Monstros monstro_5 = novo_monstro("The Last Knight", 15600, 10000, 500);
 
         do{
