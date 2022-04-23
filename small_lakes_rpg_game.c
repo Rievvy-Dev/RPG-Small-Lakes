@@ -758,6 +758,7 @@ struct PocaoVida selecione_pocao_por_id(int indice_pocao, struct RepositorioPoca
 struct PocaoVida selecione_pocao_vida_por_nome(char * nome_pocao, struct RepositorioPocaoVida  * repositorio_pocao_vida){
     struct PocaoVida pocao_retorno;
     int i;
+
     for(i = 0; i < repositorio_pocao_vida->proxima_posicao_disponivel; i++){
         if(strcmp(repositorio_pocao_vida->pocoes_vida[i].nome, nome_pocao) == 0){
             pocao_retorno=repositorio_pocao_vida->pocoes_vida[i];
@@ -891,26 +892,33 @@ void ver_status_personagem(struct Personagem personagem){
     // Lembrar de ver a quantidade de po��es dispon�veis no personagem.
 }
 
+void tomar_pocao(struct PocaoVida  pocao, struct Personagem *personagem){
+    if(quantidade_pocao_disponivel(pocao.nome,personagem->repositorio_pocao_vida)>0){
+        int indice_pocao_cura;
+        indice_pocao_cura = selecione_indice_pocao_por_nome(pocao.nome,personagem->repositorio_pocao_vida);
+        remova_pocao_vida_por_id(indice_pocao_cura,&personagem->repositorio_pocao_vida);
+
+        if((personagem->pontos_vida + pocao.cura) <= 100){
+            personagem->pontos_vida+= pocao.cura;
+        }else{
+            personagem->pontos_vida=100;
+        }
+    }else{
+        printf("\n\t*** VOCE NAO POSSUI ESSE TIPO DE POCAO, VA COMPRAR ALGUMAS NA LOJA ***\n");
+    }
+}
+
 void printar_menu_pocoes_disponiveis(struct Personagem *personagem){
     printf("\n\t*** POCOES DISPONIVEIS ***\n");
+
     printf("\n\t1.Pocao de Cura Grande   - - - -  x%d\n",quantidade_pocao_disponivel("Pocao de Cura Grande",personagem->repositorio_pocao_vida));
     printf("\t2.Pocao de Cura Media    - - - -  x%d\n",quantidade_pocao_disponivel("Pocao de Cura Media",personagem->repositorio_pocao_vida));
     printf("\t3.Pocao de Cura Pequena  - - - -  x%d\n",quantidade_pocao_disponivel("Pocao de Cura Pequena",personagem->repositorio_pocao_vida));
     printf("\t4.Sair\n");
+    printf("\t\t*** VIDA ATUAL: %d ***\n\n",personagem->pontos_vida);
 }
 
-void tomar_pocao(struct PocaoVida  pocao, struct Personagem *personagem){
-    int indice_pocao_cura;
-    indice_pocao_cura = selecione_indice_pocao_por_nome(pocao.nome,personagem->repositorio_pocao_vida);
-    remova_pocao_vida_por_id(indice_pocao_cura,&personagem->repositorio_pocao_vida);
 
-    if((personagem->pontos_vida + pocao.cura) <= 100){
-        personagem->pontos_vida+= pocao.cura;
-    }else{
-        personagem->pontos_vida=100;
-    }
-    
-}
 
 
 void menu_tomar_pocao(struct Personagem *personagem){
@@ -918,13 +926,14 @@ void menu_tomar_pocao(struct Personagem *personagem){
     int indice_pocao_cura;
     do{
         printar_menu_pocoes_disponiveis(personagem);
-        printf("\tDigite o nome da pocao que voce quer tomar: ");
+        printf("\tInforme o numero da pocao que voce quer tomar: ");
         scanf("%d", &option);
         
         if(option==1){
             tomar_pocao(selecione_pocao_vida_por_nome("Pocao de Cura Grande",&personagem->repositorio_pocao_vida),personagem);
         }else if(option==2){
             tomar_pocao(selecione_pocao_vida_por_nome("Pocao de Cura Media",&personagem->repositorio_pocao_vida),personagem);
+            printf("\n\n\n%s\n\n\n",selecione_pocao_vida_por_nome("Pocao de Cura Media",&personagem->repositorio_pocao_vida).nome);
         }else if(option==3){
             tomar_pocao(selecione_pocao_vida_por_nome("Pocao de Cura Pequena",&personagem->repositorio_pocao_vida),personagem);
         }else if(option==4){
